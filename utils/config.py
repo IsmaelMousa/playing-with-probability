@@ -6,46 +6,39 @@ import pandas as pd
 
 
 @dataclass(frozen=True)
-# TODO: find a better name for this class
-class StudentPath:
-    # TODO: find a better way to write the docs
+class StudentsPath:
     """
-    Students path configurations
+    Students path configuration
     """
     path: str
 
 
 @dataclass(frozen=True)
-# TODO: find a better name for this class
-class StudentData:
-    # TODO: find a better way to write the docs
+class StudentsData:
     """
-    Students data as a list of dict
+    Students data store
     """
     data: list[dict]
 
 
 @lru_cache(maxsize=1)
-# TODO: find a better name for this func
-def get_students_data() -> StudentData:
-    # TODO: find a better way to write the docs
+def get_stu_data() -> StudentsData:
     """
-    Getting students data as a list of dictionaries
+    Getting and loading students data as a list of dictionaries
     :return: StudentData
     """
-    # TODO: find a better way to pass the file path
-    with open("../config.yaml", "r") as file:
+    with open("config.yaml", "r") as file:
         config = safe_load(file)
 
-        stu_path_cfg = StudentPath(path=config["STUDENTS_DATA_PATH"])
+        stu_path_cfg = StudentsPath(path=config["STUDENTS_DATA_PATH"])
 
         data = pd.read_csv(stu_path_cfg.path).to_dict("records")
 
-        stu_data_cfg = StudentData(data=data)
+        stu_data_cfg = StudentsData(data=data)
 
         return stu_data_cfg
 
 
-students = get_students_data()
+students = get_stu_data()
 
 students_data = students.data

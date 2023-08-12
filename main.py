@@ -1,6 +1,4 @@
-from issues import issue1, issue2, issue3
+import issues.is1
 
-
-issue1
-issue2
-issue3
+if __name__ == '__main__':
+    pass
