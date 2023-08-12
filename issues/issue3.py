@@ -1,9 +1,11 @@
-from data.students import DATA
+# TODO: refactor this code and make it more pythonic
+from utils.config import students_data
 
 
 def predict_mark(search_student: dict, data: list) -> str:
     list_of_marks = [student["mark"] for student in data if student["gender"] == search_student["gender"]
-                     and student["parent_education"] == search_student["parent_education"] and student["test_preperation"] == search_student["test_preperation"]]
+                     and student["parent_education"] == search_student["parent_education"] and student[
+                         "test_preperation"] == search_student["test_preperation"]]
 
     if len(list_of_marks) == 0:
         return f"{None}, Student not found"
@@ -37,7 +39,8 @@ def get_student_information() -> dict:
         print("Invalid gender\n")
         gender = input("Enter gender of the student (male / female): ").lower()
 
-    while parent_education not in ["master's degree", "bachelor's degree", "high school", "some college", "associate's degree", "some high school",]:
+    while parent_education not in ["master's degree", "bachelor's degree", "high school", "some college",
+                                   "associate's degree", "some high school", ]:
         print("Invalid parent education\n")
         parent_education = input(
             "Enter parent education (bachelor's degree / some college / master's degree / associate's degree / 'high school / some high school): ").lower()
@@ -50,9 +53,8 @@ def get_student_information() -> dict:
     return {"gender": gender, "parent_education": parent_education, "test_preperation": test_preperation}
 
 
-# Call the function
 student_information = get_student_information()
 
-the_predict_mark = predict_mark(student_information, DATA)
+the_predict_mark = predict_mark(student_information, students_data)
 
 print(the_predict_mark)

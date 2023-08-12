@@ -1,12 +1,13 @@
+# TODO: refactor this code and make it more pythonic
 from scipy.stats import binom
-from data.students import DATA
+from utils.config import students_data
 
 # a)
-number_of_students = len(DATA)
+number_of_students = len(students_data)
 
 score_success_counter = 0
 
-for student in DATA:
+for student in students_data:
     if student['score_1'] >= 50:
         score_success_counter += 1
     if student['score_2'] >= 50:
@@ -28,7 +29,7 @@ p = probability_of_success_in_exam
 
 random_variable_model = binom(n, p)
 
-random_variable_values = list(range(n+1))
+random_variable_values = list(range(n + 1))
 
 probabilities = [random_variable_model.pmf(y) for y in random_variable_values]
 
