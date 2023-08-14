@@ -1,34 +1,56 @@
 # Playing with the Probabilities 
 
-This is my first attempt at writing Python codes to solve probabilistic issues.
 
-Here we have these Issues:
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [ISSUES](#issues)
+  * [ISSUE 1](#issue-1)
+  * [ISSUE 2](#issue-2)
+  * [ISSUE 3](#issue-3)
+    * [Input](#input)
+    * [Output](#output)
+* [Contact](#contact)
 
-# ISSUE 1
-Suppose a random variable Y represent number of sucesses in the three math exams, (Y is a binomial random variable with n=3).
+## General info
+This is my education attempt at writing Python codes to solve probabilistic issues.
+
+## Technologies
+Project is created with:
+* Python 3.11.2
+
+## Setup
+To run this project:
+1) install dependencies run `pip install -r requirements.txt`
+2) run main file `python main.py` or using code editor(Pycharm or VS code)
+
+## ISSUES:
+
+### ISSUE 1
+Suppose a random variable Y represent number of successes in the three math exams, (Y is a binomial random variable with n=3).
 A student pass an exam when his/her mark is greater or equal to 50.
 
-## a) Compute probability of success (p).
-## b) Compute probability of every value of the random variable Y.
+##### 1: Compute probability of success (p).
+##### 1: Compute probability of every value of the random variable Y.
 
-# ISSUE 2
-Assume a radom variable X that defines the Gender of a studet. We define a success when the student is a 'female'.
+### ISSUE 2
+Assume a random variable X that defines the Gender of a student. We define a success when the student is a 'female'.
 
-## a) Compute the probability of success using the data.
-## b) Write a function that computes the probability of a bernoulli random variable. 
-## c) Plot the distribution of the random variable X.
+##### a) Compute the probability of success using the data.
+##### b) Write a function that computes the probability of a bernoulli random variable. 
+##### c) Plot the distribution of the random variable X.
 
-# ISSUE 3
+### ISSUE 3
+Write a function that predicts the student mark given (Gender, Parent education, Test preparation).
 
-Write a function that predicts the student mark given (Gender, Parent education, Test preperation).
+#### Input:
+##### 1) The historical data as a list of dictionaries.
+##### 2) Information of the unseen student as a dictionary.
 
-### Input:
-
-## 1) The historical data as a list of dictionaries.
-## 2) Information of the unseen student as a dictionary.
-
-### Output:
-
+#### Output:
 The predicted mark for that student, (The predicted mark is the mark with the maximum conditional probability).
 
-# RUN main.py file
+
+## Contact
+Created by [@Ismael Mousa](https://www.linkedin.com/in/ismaelmousa/) - feel free to contact me!

@@ -1,6 +1,7 @@
+from functools import lru_cache
+
 from scipy.stats import binom
 from utils.config import students_data
-from functools import lru_cache
 
 
 # a)
@@ -30,21 +31,31 @@ def get_prob_avg_success() -> float:
 
 
 # b)
-@lru_cache(maxsize=5)
-def get_binomial_prob_of_success(trails: int, probability_avg_of_success_in_exam: float) -> dict[int, float]:
+@lru_cache(maxsize=128)
+def get_binomial_prob_of_success(trails: int, prob_avg_of_success_in_exam: float) -> dict[int, float]:
+    """
+    Getting the binomial probability of each trail
+    :param trails: int
+    :param prob_avg_of_success_in_exam: float
+    :return: dict[int, float]
+    """
+    if not isinstance(trails, int):
+        raise ValueError(f"({trails = }), MUST BE INTEGER!")
     n = trails
 
-    p = probability_avg_of_success_in_exam
+    if not isinstance(prob_avg_of_success_in_exam, float):
+        raise ValueError(f"({prob_avg_of_success_in_exam = }), MUST BE FLOAT!")
+    p = prob_avg_of_success_in_exam
 
     random_variable_model = binom(n, p)
 
     random_variable_values = list(range(n + 1))
 
-    probabilities = [random_variable_model.pmf(y) for y in random_variable_values]
+    probs = [random_variable_model.pmf(y) for y in random_variable_values]
 
     binomial_prob_of_success = {}
 
-    for probability in probabilities:
-        binomial_prob_of_success[probabilities.index(probability)] = probability
+    for prob in probs:
+        binomial_prob_of_success[probs.index(prob)] = prob
 
     return binomial_prob_of_success
