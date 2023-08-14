@@ -5,11 +5,11 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [ISSUES](#issues)
-  * [ISSUE 1](#issue-1)
-  * [ISSUE 2](#issue-2)
-  * [ISSUE 3](#issue-3)
-  * [Contact](#contact)
+* [Issues](#issues)
+  * [1](#issue-1)
+  * [2](#issue-2)
+  * [3](#issue-3)
+* [Contact](#contact)
 
 ## General info
 This is my education attempt at writing Python codes to solve probabilistic issues.
@@ -23,23 +23,23 @@ To run this project:
 1) install dependencies run `pip install -r requirements.txt`
 2) run main file `python main.py` or using code editor(Pycharm or VS code)
 
-## ISSUES:
+## Issues:
 
-### ISSUE 1
+### 1
 Suppose a random variable Y represent number of successes in the three math exams, (Y is a binomial random variable with n=3).
 A student pass an exam when his/her mark is greater or equal to 50.
 
-##### 1: Compute probability of success (p).
-##### 1: Compute probability of every value of the random variable Y.
+##### a) Compute probability of success (p).
+##### b) Compute probability of every value of the random variable Y.
 
-### ISSUE 2
+### 2
 Assume a random variable X that defines the Gender of a student. We define a success when the student is a 'female'.
 
 ##### a) Compute the probability of success using the data.
 ##### b) Write a function that computes the probability of a bernoulli random variable. 
 ##### c) Plot the distribution of the random variable X.
 
-### ISSUE 3
+### 3
 Write a function that predicts the student mark given (Gender, Parent education, Test preparation).
 
 #### Input:
