@@ -9,9 +9,7 @@
   * [ISSUE 1](#issue-1)
   * [ISSUE 2](#issue-2)
   * [ISSUE 3](#issue-3)
-    * [Input](#input)
-    * [Output](#output)
-* [Contact](#contact)
+  * [Contact](#contact)
 
 ## General info
 This is my education attempt at writing Python codes to solve probabilistic issues.
