@@ -7,7 +7,7 @@ from utils.config import students_data
 # a)
 def get_prob_avg_success() -> float:
     """
-    Getting the probability of success avg in the exams
+    Getting the probability of success avg in the exams.
     :return: float
     """
     number_of_students = len(students_data)
@@ -33,7 +33,7 @@ def get_prob_avg_success() -> float:
 @lru_cache(maxsize=128)
 def get_binomial_prob_of_success(trails: int, prob_avg_of_success_in_exam: float) -> dict[int, float]:
     """
-    Getting the binomial probability of each trail
+    Getting the binomial probability of each trail.
     :param trails: int
     :param prob_avg_of_success_in_exam: float
     :return: dict[int, float]

@@ -8,7 +8,7 @@ import pandas as pd
 @dataclass(frozen=True)
 class StudentsPath:
     """
-    Students path configuration
+    Students path configuration.
     """
     path: str
 
@@ -16,7 +16,7 @@ class StudentsPath:
 @dataclass(frozen=True)
 class StudentsData:
     """
-    Students data store
+    Students data store.
     """
     data: list[dict]
 
@@ -24,7 +24,7 @@ class StudentsData:
 @lru_cache(maxsize=1)
 def get_stu_data() -> StudentsData:
     """
-    Getting and loading students data as a list of dictionaries
+    Getting and loading students data as a list of dictionaries.
     :return: StudentData
     """
     with open("config.yaml", "r") as file:
