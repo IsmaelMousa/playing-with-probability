@@ -12,7 +12,11 @@
 * [Contact](#contact)
 
 ## General info
-This is my education attempt at writing Python codes to solve probabilistic issues.
+This project is intended only for training and learning to solve probabilistic issues using the Python language.
+
+The project was simple and not very good in terms of codes, files, etc...
+Where the project was basically just about providing solutions without using that much code (the project was just one file),
+But I decided to incorporate the things and additions that I learned myself through my scientific and training experience in this project so that it is more advanced.
 
 ## Technologies
 Project is created with:
