@@ -5,7 +5,6 @@ from utils.config import students_data
 
 
 # a)
-@lru_cache(maxsize=1)
 def get_prob_avg_success() -> float:
     """
     Getting the probability of success avg in the exams
