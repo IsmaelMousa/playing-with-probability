@@ -1,47 +1,61 @@
-# TODO: refactor this code and make it more pythonic
+from functools import lru_cache
+
 from scipy.stats import bernoulli
 import matplotlib.pyplot as plt
-
 from utils.config import students_data
 
+
 # a)
-student_gender_is_female_counter = sum(student["gender"] == "female" for student in students_data)
+def get_prob_of_students_gender_is_female() -> float:
+    """
+    Getting the probability of the students is female.
+    :return: float
+    """
+    student_gender_is_female_counter = sum(student["gender"] == "female" for student in students_data)
 
-probability_of_student_gender_is_female = student_gender_is_female_counter / len(students_data)
+    prob_of_students_gender_is_female = student_gender_is_female_counter / len(students_data)
 
-print(f"The probability of success (p): {probability_of_student_gender_is_female} ")
+    return prob_of_students_gender_is_female
 
 
 # b)
-def bernoulli_pmf(x: int, p: float) -> float:
-    if x == 0 and (0 <= p <= 1):
-        return f"P(X={x}) = {1 - p}"
+def get_bernoulli_pmf(random_variable: int, prob_of_success: float) -> float:
+    """
+    Computing the probability of a bernoulli random variable.
+    :param random_variable: int
+    :param prob_of_success: float
+    :return: float
+    """
+    try:
+        if 0 <= prob_of_success <= 1:
+            if random_variable == 0:
+                return 1 - prob_of_success
+            elif random_variable == 1:
+                return prob_of_success
+        return None
+    except (ValueError, TypeError):
+        return None
 
-    elif x == 1 and (0 <= p <= 1):
-        return f"P(X={x}) = {p}"
-
-    else:
-        return f"{None}, as values of bernoulli random variable should be 0 or 1"
-
-
-x = int(input("Enter the value of R.V: "))
-
-p = float(input("Enter the probability: "))
-
-print(f"The Probability (p): {bernoulli_pmf(x, p)}")
 
 # c)
+@lru_cache(maxsize=1)
+def get_plotting_distribution_of_the_random_variable(prob_of_students_gender_is_female: float) -> None:
+    """
+    Getting Plot the distribution of the random variable.
+    :param prob_of_students_gender_is_female: float
+    :return: function
+    """
+    prob_of_success = prob_of_students_gender_is_female
 
-probability_of_success = probability_of_student_gender_is_female
+    random_variable_model = bernoulli(prob_of_success)
 
-random_variable_model = bernoulli(probability_of_success)
+    random_variable_values = [0, 1]
 
-random_variable_values = list(range(2))
+    probabilities = [random_variable_model.pmf(x) for x in random_variable_values]
 
-probabilities = [random_variable_model.pmf(x) for x in random_variable_values]
-
-plt.xlabel("R.V (X)")
-plt.ylabel("P(X=x)")
-plt.vlines(random_variable_values, 0, probabilities, colors='k', linestyles='-', lw=1, label='Bernoulli PMF     ')
-plt.legend(loc='best', frameon=False)
-plt.show()
+    plt.xlabel(xlabel="R.V (X)")
+    plt.ylabel(ylabel="P(X=x)")
+    plt.vlines(x=random_variable_values, ymin=0, ymax=probabilities, colors='k', linestyles='-', lw=1,
+               label='Bernoulli PMF     ')
+    plt.legend(loc='best', frameon=False)
+    plt.show()
