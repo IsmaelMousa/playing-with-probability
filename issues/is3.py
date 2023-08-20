@@ -1,9 +1,5 @@
-# TODO: refactor this code and make it more pythonic
-from utils.config import students_data
-
-
-def predict_mark(search_student: dict, data: list) -> str:
-    list_of_marks = [student["mark"] for student in data if student["gender"] == search_student["gender"]
+def predict_mark(search_student: dict, students_data: list) -> str:
+    list_of_marks = [student["mark"] for student in students_data if student["gender"] == search_student["gender"]
                      and student["parent_education"] == search_student["parent_education"] and student[
                          "test_preperation"] == search_student["test_preperation"]]
 
@@ -51,10 +47,3 @@ def get_student_information() -> dict:
             "Enter test preparation (completed / none): ").lower()
 
     return {"gender": gender, "parent_education": parent_education, "test_preperation": test_preperation}
-
-
-student_information = get_student_information()
-
-the_predict_mark = predict_mark(student_information, students_data)
-
-print(the_predict_mark)
