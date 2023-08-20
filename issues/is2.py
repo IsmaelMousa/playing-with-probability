@@ -2,11 +2,10 @@ from functools import lru_cache
 
 from scipy.stats import bernoulli
 import matplotlib.pyplot as plt
-from utils.config import students_data
 
 
 # a)
-def get_prob_of_students_gender_is_female() -> float:
+def get_prob_of_students_gender_is_female(students_data) -> float:
     """
     Getting the probability of the students is female.
     :return: float
