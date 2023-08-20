@@ -1,11 +1,10 @@
 from functools import lru_cache
 
 from scipy.stats import binom
-from utils.config import students_data
 
 
 # a)
-def get_prob_avg_success() -> float:
+def get_prob_avg_success(students_data) -> float:
     """
     Getting the probability of success avg in the exams.
     :return: float
