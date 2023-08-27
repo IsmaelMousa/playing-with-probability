@@ -11,7 +11,7 @@ class FirstIssue:
     (Y is a binomial random variable with n=3), A student pass an exam when his/her mark is greater or equal to 50.
     """
 
-    def __int__(self, data: list[dict]) -> None:
+    def __init__(self, data: list[dict]) -> None:
         self.data = data
 
     def get_prob_avg_success(self) -> float:
@@ -75,7 +75,7 @@ class SecondIssue:
     We define a success when the student is a 'female'.
     """
 
-    def __int__(self, data: list[dict]) -> None:
+    def __init__(self, data: list[dict]) -> None:
         self.data = data
 
     def get_probability_of_students_gender_is_female(self) -> float:
@@ -134,7 +134,7 @@ class ThirdIssue:
     Predicts the student mark given (Gender, Parent education, Test preparation).
     """
 
-    def __int__(self, data: list[dict]) -> None:
+    def __init__(self, data: list[dict]) -> None:
         self.data = data
 
     def __get_student_information(self) -> dict:
