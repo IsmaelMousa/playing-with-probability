@@ -5,71 +5,68 @@ from scipy.stats import binom, bernoulli
 import matplotlib.pyplot as plt
 
 
-# TODO: refactor the old code and transform it to OOP way
 class FirstIssue:
     """
     Suppose a random variable Y represent number of successes in the three math exams
     (Y is a binomial random variable with n=3), A student pass an exam when his/her mark is greater or equal to 50.
     """
 
-    def __int__(self, data: list[dict]):
+    def __int__(self, data: list[dict]) -> None:
         self.data = data
 
     def get_prob_avg_success(self) -> float:
         """
-        Getting the probability of success avg in the exams.
+        Calculate the probability of success avg in the exams.
+
         :return: float
         """
         students_data = self.data
 
         number_of_students = len(students_data)
+        if number_of_students == 0:
+            return 0.0
 
-        score_success_counter = 0
+        score_success_count = 0
 
         for student in students_data:
             if student['score_1'] >= 50:
-                score_success_counter += 1
+                score_success_count += 1
             if student['score_2'] >= 50:
-                score_success_counter += 1
+                score_success_count += 1
             if student['score_3'] >= 50:
-                score_success_counter += 1
+                score_success_count += 1
 
-        scores_succeeded = score_success_counter / 3
-        try:
-            probability_avg_of_success_in_exam = scores_succeeded / number_of_students
+        scores_succeeded = score_success_count / 3
 
-            return probability_avg_of_success_in_exam
+        average_success_probability_in_exam = scores_succeeded / number_of_students
 
-        except ZeroDivisionError:
-            return "The number of students is zero!\n"
-        except TypeError:
-            return "The number of students must be integer!\n"
+        return average_success_probability_in_exam
 
     @lru_cache(maxsize=128)
     def get_binomial_prob_of_success(self, trails: int) -> dict[int, float]:
         """
-        Getting the binomial probability of each trail.
+        Calculate the binomial probability of each trail.
+
         :param trails: int
         :return: dict[int, float]
         """
-        try:
-            prob_avg_of_success_in_exam = self.get_prob_avg_success()
+        if not isinstance(trails, int) or trails < 0:
+            return {}
 
-            random_variable_model = binom(trails, prob_avg_of_success_in_exam)
+        average_success_probability_in_exam = self.get_prob_avg_success()
 
-            random_variable_values = list(range(trails + 1))
+        random_variable_model = binom(trails, average_success_probability_in_exam)
 
-            probs = [random_variable_model.pmf(y) for y in random_variable_values]
+        random_variable_values = list(range(trails + 1))
 
-            binomial_prob_of_success = {}
+        probabilities = [random_variable_model.pmf(y) for y in random_variable_values]
 
-            for prob in probs:
-                binomial_prob_of_success[probs.index(prob)] = prob
+        binomial_success_probability = {}
 
-            return binomial_prob_of_success
+        for probability in probabilities:
+            binomial_success_probability[probabilities.index(probability)] = probability
 
-        except TypeError:
-            return "The trails must be integer!\n"
+        return binomial_success_probability
 
 
 class SecondIssue:
@@ -78,42 +75,39 @@ class SecondIssue:
     We define a success when the student is a 'female'.
     """
 
-    def __int__(self, data: list[dict]):
+    def __int__(self, data: list[dict]) -> None:
         self.data = data
 
-    def get_prob_of_students_gender_is_female(self) -> float:
+    def get_probability_of_students_gender_is_female(self) -> float:
         """
         Getting the probability of the students is female.
         :return: float
         """
         students_data = self.data
 
-        try:
-            student_gender_is_female_counter = sum(student["gender"] == "female" for student in students_data)
+        number_of_students = len(students_data)
+        if number_of_students == 0:
+            return 0.0
 
-            prob_of_students_gender_is_female = student_gender_is_female_counter / len(students_data)
+        student_gender_is_female_count = sum(student["gender"] == "female" for student in students_data)
 
-        except ZeroDivisionError:
-            return "The number of students is zero!\n"
-        except TypeError:
-            return "The number of students must be integer!\n"
+        prob_of_students_gender_is_female = student_gender_is_female_count / number_of_students
 
         return prob_of_students_gender_is_female
 
-    def get_bernoulli_pmf(self, random_variable: int) -> float:
+    def get_bernoulli_probability_mass_function(self, random_variable: int) -> float:
         """
         Computing the probability of a bernoulli random variable.
         :param random_variable: int
         :return: float
         """
-        try:
-            if random_variable == 0:
-                return 1 - self.get_prob_of_students_gender_is_female()
-            elif random_variable == 1:
-                return self.get_prob_of_students_gender_is_female()
-            return None
-        except (ValueError, TypeError):
-            return "The random variable must be integer!\n"
+        if not isinstance(random_variable, int) or random_variable not in [0, 1]:
+            return float('NaN')
+
+        elif random_variable == 0:
+            return 1 - self.get_probability_of_students_gender_is_female()
+
+        return self.get_probability_of_students_gender_is_female()
 
     @lru_cache(maxsize=1)
     def get_plotting_distribution_of_the_random_variable(self) -> None:
@@ -121,7 +115,7 @@ class SecondIssue:
         Getting Plot the distribution of the random variable.
         :return: None
         """
-        random_variable_model = bernoulli(self.get_prob_of_students_gender_is_female())
+        random_variable_model = bernoulli(self.get_probability_of_students_gender_is_female())
 
         random_variable_values = [0, 1]
 
@@ -137,10 +131,10 @@ class SecondIssue:
 
 class ThirdIssue:
     """
-    Write a function that predicts the student mark given (Gender, Parent education, Test preparation).
+    Predicts the student mark given (Gender, Parent education, Test preparation).
     """
 
-    def __int__(self, data: list[dict]):
+    def __int__(self, data: list[dict]) -> None:
         self.data = data
 
     def __get_student_information(self) -> dict:
@@ -176,28 +170,29 @@ class ThirdIssue:
         return {"gender": gender, "parent_education": parent_education, "test_preperation": test_preperation}
 
     def predict_mark(self) -> str:
+        """
+        Getting the most predict mark based on the inputs that were given.
+        :returns: str
+        """
         search_student = self.__get_student_information()
-
         students_data = self.data
 
-        list_of_marks = [student["mark"] for student in students_data if student["gender"] == search_student["gender"]
-                         and student["parent_education"] == search_student["parent_education"] and student[
-                             "test_preperation"] == search_student["test_preperation"]]
+        marks = [student["mark"] for student in students_data if student["gender"] == search_student["gender"]
+                 and student["parent_education"] == search_student["parent_education"] and student[
+                     "test_preperation"] == search_student["test_preperation"]]
+        if len(marks) == 0:
+            return "No match between the students information and your inputs!\n"
 
-        if len(list_of_marks) == 0:
-            return f"None Student not found!\n"
+        mark_a_count = marks.count("A")
+        mark_b_count = marks.count("B")
+        mark_c_count = marks.count("C")
 
-        mark_a_counter = list_of_marks.count("A")
-        mark_b_counter = list_of_marks.count("B")
-        mark_c_counter = list_of_marks.count("C")
+        counts = {'A': mark_a_count, 'B': mark_b_count, 'C': mark_c_count}
+        max_count = max(counts.values())
 
-        most_mark_found = max(mark_a_counter, mark_b_counter, mark_c_counter)
+        predicted_marks = [mark for mark, count in counts.items() if count == max_count]
 
-        if mark_a_counter == most_mark_found:
-            return "The predicted mark is: A"
-        elif mark_b_counter == most_mark_found:
-            return "The predicted mark is: B"
-        elif mark_c_counter == most_mark_found:
-            return "The predicted mark is: C"
-        else:
-            return "Not A nor B nor C"
+        if len(predicted_marks) == 1:
+            return f"The predicted mark is: {predicted_marks[0]}"
+
+        return " & ".join(predicted_marks)
