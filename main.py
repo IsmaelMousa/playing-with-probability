@@ -4,8 +4,8 @@ from issues import *
 if __name__ == '__main__':
     F, S, T = FirstIssue(students_data), SecondIssue(students_data), ThirdIssue(students_data)
 
-    a1 = F.get_prob_avg_success()
-    b1 = F.get_binomial_prob_of_success(trails=int(input("Trails: ")))
+    a1 = F.get_average_success_probability()
+    b1 = F.get_binomial_prob_of_success(trials=int(input("Trails: ")))
 
     print(a1, b1)
 

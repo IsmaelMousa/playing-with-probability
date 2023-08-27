@@ -14,7 +14,7 @@ class FirstIssue:
     def __init__(self, data: list[dict]) -> None:
         self.data = data
 
-    def get_prob_avg_success(self) -> float:
+    def get_average_success_probability(self) -> float:
         """
         Calculate the probability of success avg in the exams.
 
@@ -24,16 +24,16 @@ class FirstIssue:
 
         number_of_students = len(students_data)
         if number_of_students == 0:
-            return 0.0
+            return float("NaN")
 
         score_success_count = 0
 
         for student in students_data:
-            if student['score_1'] >= 50:
+            if student["score_1"] >= 50:
                 score_success_count += 1
-            if student['score_2'] >= 50:
+            if student["score_2"] >= 50:
                 score_success_count += 1
-            if student['score_3'] >= 50:
+            if student["score_3"] >= 50:
                 score_success_count += 1
 
         scores_succeeded = score_success_count / 3
@@ -43,21 +43,21 @@ class FirstIssue:
         return average_success_probability_in_exam
 
     @lru_cache(maxsize=128)
-    def get_binomial_prob_of_success(self, trails: int) -> dict[int, float]:
+    def get_binomial_prob_of_success(self, trials: int) -> dict[int, float]:
         """
         Calculate the binomial probability of each trail.
 
-        :param trails: int
+        :param trials: int
         :return: dict[int, float]
         """
-        if not isinstance(trails, int) or trails < 0:
+        if not isinstance(trials, int) or trials < 0:
             return {}
 
-        average_success_probability_in_exam = self.get_prob_avg_success()
+        average_success_probability_in_exam = self.get_average_success_probability()
 
-        random_variable_model = binom(trails, average_success_probability_in_exam)
+        random_variable_model = binom(trials, average_success_probability_in_exam)
 
-        random_variable_values = list(range(trails + 1))
+        random_variable_values = list(range(trials + 1))
 
         probabilities = [random_variable_model.pmf(y) for y in random_variable_values]
 
@@ -87,7 +87,7 @@ class SecondIssue:
 
         number_of_students = len(students_data)
         if number_of_students == 0:
-            return 0.0
+            return float("NaN")
 
         student_gender_is_female_count = sum(student["gender"] == "female" for student in students_data)
 
@@ -102,7 +102,7 @@ class SecondIssue:
         :return: float
         """
         if not isinstance(random_variable, int) or random_variable not in [0, 1]:
-            return float('NaN')
+            return float("NaN")
 
         elif random_variable == 0:
             return 1 - self.get_probability_of_students_gender_is_female()
@@ -124,8 +124,8 @@ class SecondIssue:
         plt.xlabel(xlabel="R.V (X)")
         plt.ylabel(ylabel="P(X=x)")
         plt.vlines(x=random_variable_values, ymin=0, ymax=probabilities, colors='k', linestyles='-', lw=1,
-                   label='Bernoulli PMF     ')
-        plt.legend(loc='best', frameon=False)
+                   label="Bernoulli PMF     ")
+        plt.legend(loc="best", frameon=False)
         plt.show()
 
 
@@ -187,7 +187,7 @@ class ThirdIssue:
         mark_b_count = marks.count("B")
         mark_c_count = marks.count("C")
 
-        counts = {'A': mark_a_count, 'B': mark_b_count, 'C': mark_c_count}
+        counts = {"A": mark_a_count, "B": mark_b_count, "C": mark_c_count}
         max_count = max(counts.values())
 
         predicted_marks = [mark for mark, count in counts.items() if count == max_count]
