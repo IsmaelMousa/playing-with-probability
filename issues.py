@@ -1,7 +1,7 @@
 from functools import lru_cache
+from typing import Union
 
 from scipy.stats import binom, bernoulli
-
 import matplotlib.pyplot as plt
 
 
@@ -12,19 +12,19 @@ class FirstIssue:
     """
 
     def __init__(self, data: list[dict]) -> None:
-        self.data = data
+        self.__data = data
 
-    def get_average_success_probability(self) -> float:
+    def get_average_success_probability(self) -> Union[float, str]:
         """
         Calculate the probability of success avg in the exams.
 
         :return: float
         """
-        students_data = self.data
+        students_data = self.__data
 
         number_of_students = len(students_data)
         if number_of_students == 0:
-            return float("NaN")
+            return "Students data is empty!\n"
 
         score_success_count = 0
 
@@ -43,7 +43,7 @@ class FirstIssue:
         return average_success_probability_in_exam
 
     @lru_cache(maxsize=128)
-    def get_binomial_prob_of_success(self, trials: int) -> dict[int, float]:
+    def get_binomial_probability_of_success(self, trials: int) -> dict[int, float]:
         """
         Calculate the binomial probability of each trail.
 
@@ -76,18 +76,18 @@ class SecondIssue:
     """
 
     def __init__(self, data: list[dict]) -> None:
-        self.data = data
+        self.__data = data
 
-    def get_probability_of_students_gender_is_female(self) -> float:
+    def get_probability_of_students_gender_is_female(self) -> Union[float, str]:
         """
         Getting the probability of the students is female.
         :return: float
         """
-        students_data = self.data
+        students_data = self.__data
 
         number_of_students = len(students_data)
         if number_of_students == 0:
-            return float("NaN")
+            return "Students data is empty!\n"
 
         student_gender_is_female_count = sum(student["gender"] == "female" for student in students_data)
 
@@ -95,21 +95,20 @@ class SecondIssue:
 
         return prob_of_students_gender_is_female
 
-    def get_bernoulli_probability_mass_function(self, random_variable: int) -> float:
+    def get_bernoulli_probability_mass_function(self, random_variable: int) -> Union[float, str]:
         """
         Computing the probability of a bernoulli random variable.
         :param random_variable: int
         :return: float
         """
-        if not isinstance(random_variable, int) or random_variable not in [0, 1]:
-            return float("NaN")
+        if random_variable not in [0, 1]:
+            return "Invalid random variable!\n"
 
         elif random_variable == 0:
             return 1 - self.get_probability_of_students_gender_is_female()
 
         return self.get_probability_of_students_gender_is_female()
 
-    @lru_cache(maxsize=1)
     def get_plotting_distribution_of_the_random_variable(self) -> None:
         """
         Getting Plot the distribution of the random variable.
@@ -135,9 +134,10 @@ class ThirdIssue:
     """
 
     def __init__(self, data: list[dict]) -> None:
-        self.data = data
+        self.__data = data
 
-    def __get_student_information(self) -> dict:
+    @staticmethod
+    def __get_student_information() -> dict[str, str]:
         """
         Getting the students information as an input from the user.
         :return: dict
@@ -175,7 +175,7 @@ class ThirdIssue:
         :returns: str
         """
         search_student = self.__get_student_information()
-        students_data = self.data
+        students_data = self.__data
 
         marks = [student["mark"] for student in students_data if student["gender"] == search_student["gender"]
                  and student["parent_education"] == search_student["parent_education"] and student[
