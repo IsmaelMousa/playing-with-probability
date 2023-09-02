@@ -1,7 +1,9 @@
+import os
+import sys
 from dataclasses import dataclass
 from functools import lru_cache
 
-from yaml import safe_load
+from yaml import safe_load, YAMLError
 import pandas as pd
 
 
@@ -27,16 +29,31 @@ def get_stu_data() -> StudentsData:
     Getting and loading students data as a list of dictionaries.
     :return: StudentData
     """
-    with open("config.yaml", "r") as file:
-        config = safe_load(file)
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    cfg_path = os.path.join(base_path, "../config.yaml")
 
-        stu_path_cfg = StudentsPath(path=config["STUDENTS_DATA_PATH"])
+    print(cfg_path)
+    try:
+        with open(cfg_path, "r") as cfg_file:
+            config: dict = safe_load(cfg_file)
 
-        data = pd.read_csv(stu_path_cfg.path).to_dict("records")
+            stu_path_cfg = StudentsPath(path=config.get(
+                "STUDENTS_DATA_PATH") or "https://docs.google.com/spreadsheets/d/1ch0wtMEsdKVBPcceODlPWfi292ECNszzm"
+                                         "11MU9xKXAw/export?format=csv&gid=1385521382")
 
-        stu_data_cfg = StudentsData(data=data)
+            data = pd.read_csv(stu_path_cfg.path).to_dict("records")
 
-        return stu_data_cfg
+            stu_data_cfg = StudentsData(data=data)
+
+            return stu_data_cfg
+
+    except IOError:
+        print(f"Unable to open the config file with path: {cfg_path}")
+        sys.exit(os.EX_IOERR)
+
+    except YAMLError:
+        print("Unable to parse the config file.")
+        sys.exit(os.EX_IOERR)
 
 
 students = get_stu_data()
