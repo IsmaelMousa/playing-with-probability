@@ -5,18 +5,10 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Issues](#issues)
-    * [First Issue](#first-issue)
-        * [a](#a-compute-probability-of-success-p)
-        * [b](#b-compute-probability-of-every-value-of-the-random-variable-y)
-    * [Second Issue](#second-issue)
-        * [a](#a-compute-the-probability-of-success-using-the-data)
-        * [b](#b-write-a-function-that-computes-the-probability-of-a-bernoulli-random-variable)
-        * [c](#c-plot-the-distribution-of-the-random-variable-x)
-    * [Third Issue](#third-issue)
-        * [Input](#input)
-        * [Output](#output)
-* [Contact](#contact)
+* [Description](#description)
+  * [First Issue](#first-issue)
+  * [Second Issue](#second-issue)
+  * [Third Issue](#third-issue)
 
 ## General info
 
@@ -29,10 +21,8 @@ But I decided to incorporate the things and additions that I learned myself thro
 experience in this project so that it is more advanced.
 
 ## Technologies
-
-Project is created with:
-
 * Python 3.11.2
+* YAML 6.0.1
 
 ## Setup
 
@@ -41,7 +31,7 @@ To run this project:
 1) install dependencies run `pip install -r requirements.txt`
 2) run main file `python main.py` or using code editor(Pycharm or VS code)
 
-## Issues:
+## Description:
 
 ### First Issue
 
@@ -49,19 +39,19 @@ Suppose a random variable Y represent number of successes in the three math exam
 n=3).
 A student pass an exam when his/her mark is greater or equal to 50.
 
-##### a) Compute probability of success (p).
+a) Compute probability of success (p).
 
-##### b) Compute probability of every value of the random variable Y.
+b) Compute probability of every value of the random variable Y.
 
 ### Second Issue
 
 Assume a random variable X that defines the Gender of a student. We define a success when the student is a 'female'.
 
-##### a) Compute the probability of success using the data.
+a) Compute the probability of success using the data.
 
-##### b) Write a function that computes the probability of a bernoulli random variable.
+b) Write a function that computes the probability of a bernoulli random variable.
 
-##### c) Plot the distribution of the random variable X.
+c) Plot the distribution of the random variable X.
 
 ### Third Issue
 
@@ -69,14 +59,10 @@ Write a function that predicts the student mark given (Gender, Parent education,
 
 #### Input:
 
-##### 1) The historical data as a list of dictionaries.
+1) The historical data as a list of dictionaries.
 
-##### 2) Information of the unseen student as a dictionary.
-
+2) Information of the unseen student as a dictionary.
+  
 #### Output:
 
 The predicted mark for that student, (The predicted mark is the mark with the maximum conditional probability).
-
-## Contact
-
-Created by [@Ismael Mousa](https://www.linkedin.com/in/ismaelmousa/) - feel free to contact me!
