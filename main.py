@@ -1,8 +1,6 @@
-from utils.config import students_data
+from utils import students_data
 
-from issues.first import FirstIssue
-from issues.second import SecondIssue
-from issues.third import ThirdIssue
+from issues import FirstIssue, SecondIssue, ThirdIssue
 
 
 def get_student_information() -> dict[str, str]:
