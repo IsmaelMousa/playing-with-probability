@@ -28,7 +28,7 @@ experience in this project so that it is more advanced.
 
 To run this project:
 
-1) install dependencies run `pip install -r requirements.txt`
+1) install dependencies run `make install-deps`
 2) run main file `python main.py` or using code editor(Pycharm or VS code)
 
 ## Description:
