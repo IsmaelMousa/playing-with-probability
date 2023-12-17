@@ -12,7 +12,7 @@ def get_student_information() -> dict[str, str]:
 
     parent_education = input(
         "Enter parent education (bachelor's degree / some college / master's degree"
-        " / associate's degree / 'high school / some high school): ").lower()
+        " / associate's degree / high school / some high school): ").lower()
 
     test_preperation = input(
         "Enter test preperation (completed / none): ").lower()

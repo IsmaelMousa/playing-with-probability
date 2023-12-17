@@ -37,9 +37,7 @@ def get_stu_data() -> StudentsData:
         with open(cfg_path, "r") as cfg_file:
             config: dict = safe_load(cfg_file)
 
-            stu_path_cfg = StudentsPath(path=config.get(
-                "STUDENTS_DATA_PATH") or "https://docs.google.com/spreadsheets/d/1ch0wtMEsdKVBPcceODlPWfi292ECNszzm"
-                                         "11MU9xKXAw/export?format=csv&gid=1385521382")
+            stu_path_cfg = StudentsPath(path=config.get("STUDENTS_DATA_PATH", "Not Found"))
 
             data = pd.read_csv(stu_path_cfg.path).to_dict("records")
 

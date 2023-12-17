@@ -29,7 +29,7 @@ experience in this project so that it is more advanced.
 To run this project:
 
 1) install dependencies run `make install` or `make i`
-2) run main file `python main.py` or using code editor(Pycharm or VS code)
+2) run main file `make run` or by using code editor such as **Pycharm** or **Visual Studio Code**
 
 ## Description:
 
