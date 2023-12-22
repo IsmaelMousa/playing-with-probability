@@ -32,3 +32,36 @@ class ThirdIssue:
             return f"The predicted mark is: {predicted_marks[0]}"
 
         return " & ".join(predicted_marks)
+
+    @staticmethod
+    def get_student_information() -> dict[str, str]:
+        """
+        Getting the students information as an input from the user.
+        :return: dict
+        """
+        gender = input("Enter gender of the student (male / female): ").lower()
+
+        while gender not in ["male", "female"]:
+            print("Invalid gender\n")
+            gender = input("Enter gender of the student (male / female): ").lower()
+
+        parent_education = input(
+            "Enter parent education (bachelor's degree / some college / master's degree"
+            " / associate's degree / high school / some high school): ").lower()
+
+        while parent_education not in ["master's degree", "bachelor's degree", "high school", "some college",
+                                       "associate's degree", "some high school", ]:
+            print("Invalid parent education\n")
+            parent_education = input(
+                "Enter parent education (bachelor's degree / some college / master's degree"
+                " / associate's degree / 'high school / some high school): ").lower()
+
+        test_preperation = input(
+            "Enter test preperation (completed / none): ").lower()
+
+        while test_preperation not in ["completed", "none"]:
+            print("Invalid test preperation\n")
+            test_preperation = input(
+                "Enter test preparation (completed / none): ").lower()
+
+        return {"gender": gender, "parent_education": parent_education, "test_preperation": test_preperation}

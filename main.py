@@ -3,40 +3,7 @@ from utils import students_data
 from issues import FirstIssue, SecondIssue, ThirdIssue
 
 
-def get_student_information() -> dict[str, str]:
-    """
-    Getting the students information as an input from the user.
-    :return: dict
-    """
-    gender = input("Enter gender of the student (male / female): ").lower()
-
-    parent_education = input(
-        "Enter parent education (bachelor's degree / some college / master's degree"
-        " / associate's degree / high school / some high school): ").lower()
-
-    test_preperation = input(
-        "Enter test preperation (completed / none): ").lower()
-
-    while gender not in ["male", "female"]:
-        print("Invalid gender\n")
-        gender = input("Enter gender of the student (male / female): ").lower()
-
-    while parent_education not in ["master's degree", "bachelor's degree", "high school", "some college",
-                                   "associate's degree", "some high school", ]:
-        print("Invalid parent education\n")
-        parent_education = input(
-            "Enter parent education (bachelor's degree / some college / master's degree"
-            " / associate's degree / 'high school / some high school): ").lower()
-
-    while test_preperation not in ["completed", "none"]:
-        print("Invalid test preperation\n")
-        test_preperation = input(
-            "Enter test preparation (completed / none): ").lower()
-
-    return {"gender": gender, "parent_education": parent_education, "test_preperation": test_preperation}
-
-
-def main() -> None:
+def main():
     first = FirstIssue(data=students_data)
     second = SecondIssue(data=students_data)
     third = ThirdIssue(data=students_data)
@@ -52,7 +19,8 @@ def main() -> None:
     second.get_plotting_distribution_of_the_random_variable()
 
     print(f"Question 3\n{100 * '='}\n")
-    p = third.predict_mark(search_student=get_student_information())
+    get_student_information = third.get_student_information()
+    p = third.predict_mark(search_student=get_student_information)
     print(f"\n{100 * '-'}\n{p}\n{100 * '-'}\n{100 * '='}")
 
 
